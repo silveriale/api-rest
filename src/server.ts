@@ -4,9 +4,8 @@ const PORT = 3333; // Define o numero da porta
 
 const app = express(); // Cria uma instância do Express
 
-app.get("/products/:id/:user", (request, response) => {
-  const { id, user } = request.params; // Extrai o parâmetro 'id' da URL e 'user'
-  response.send(`Produto ${id} do usuário ${user}`); // Envia uma resposta com o ID e User do produto
+app.get("/products", (request, response) => {
+  const { page, limit } = request.query; // Extrai os parâmetros de consulta 'page' e 'limit'. /products?page=1&limit=14
+  response.send(`Página ${page} de ${limit}`); // Responde com uma mensagem formatada
 });
-
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`)); // Inicia o servidor e exibe uma mensagem no console
