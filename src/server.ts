@@ -12,7 +12,8 @@ app.get("/products", (request, response) => {
 
 app.post("/products", (request, response) => {
   const { name, price } = request.body; // Extrai os parâmetros 'name' e 'price' do corpo da requisição
-  response.send(`Produto ${name} custa R$${price}`); // Responde com uma mensagem de sucesso
+  // response.send(`Produto ${name} custa R$${price}`); // Responde com uma mensagem de sucesso
+  response.status(201).json({ name, price }); // Responde com um JSON e status 201 (Criado)
 });
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`)); // Inicia o servidor e exibe uma mensagem no console
