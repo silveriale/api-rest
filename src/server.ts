@@ -18,7 +18,7 @@ app.post("/products", myMiddleware, (request, response) => {
   // Define uma rota POST para '/products' e usa o middleware de forma local, em uma rota específica
   const { name, price } = request.body; // Extrai os parâmetros 'name' e 'price' do corpo da requisição
   // response.send(`Produto ${name} custa R$${price}`); // Responde com uma mensagem de sucesso
-  response.status(201).json({ name, price }); // Responde com um JSON e status 201 (Criado)
+  response.status(201).json({ name, price, user_id: request.user_id }); // Responde com um JSON, um status 201 (Criado) e inclui o 'user_id' do middleware
 });
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`)); // Inicia o servidor e exibe uma mensagem no console
