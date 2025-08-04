@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { AppError } from "../utils/AppError";
 
 class ProductsController {
   /**
@@ -18,7 +19,8 @@ class ProductsController {
   create(request: Request, response: Response) {
     const { name, price } = request.body; // Extrai os parâmetros 'name' e 'price' do corpo da requisição
 
-    throw new Error("ERRO DE EXEMPLO"); // Lança um erro p demonstrar o tratamento de erros
+    // throw new Error("ERRO DE EXEMPLO"); // Lança um erro p demonstrar o tratamento de erros
+    // throw new AppError("Erro de exemplo"); // Lança um erro personalizado com status 401 (Não autorizado)
 
     response.status(201).json({ name, price, user_id: request.user_id }); // Responde com um JSON, um status 201 (Criado) e inclui o 'user_id' do middleware
   }
