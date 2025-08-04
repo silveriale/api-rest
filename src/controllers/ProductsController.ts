@@ -20,7 +20,7 @@ class ProductsController {
     const { name, price } = request.body; // Extrai os parâmetros 'name' e 'price' do corpo da requisição
 
     if (!name || !price) {
-      throw new AppError("Nome e preço do produto são obrigatórios!"); // Lança um erro personalizado se 'name' não for fornecido
+      throw new AppError("Nome e preço do produto são obrigatórios!"); // Lança um erro personalizado se 'name' ou 'price' não for fornecido
     }
 
     // throw new Error("ERRO DE EXEMPLO"); // Lança um erro p demonstrar o tratamento de erros
