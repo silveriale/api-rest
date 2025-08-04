@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import { routes } from "./routes/index"; // Importa as rotas definidas no arquivo index
-import { AppError } from "./utils/AppError";
+import { AppError } from "./utils/app-error";
 
 const PORT = 3333; // Define o numero da porta
 

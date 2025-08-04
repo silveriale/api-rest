@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/app-error";
 
 class ProductsController {
   /**
@@ -19,8 +19,20 @@ class ProductsController {
   create(request: Request, response: Response) {
     const { name, price } = request.body; // Extrai os parâmetros 'name' e 'price' do corpo da requisição
 
-    if (!name || !price) {
-      throw new AppError("Nome e preço do produto são obrigatórios!"); // Lança um erro personalizado se 'name' ou 'price' não for fornecido
+    if (!name) {
+      throw new AppError("Nome do produto é obrigatório!"); // Lança um erro personalizado se 'name' não for fornecido
+    }
+
+    if (name.trim().length < 6) {
+      throw new AppError("Nome do produto deve ter pelo menos 6 caracteres!"); // Lança um erro personalizado se 'name' tiver menos de 6 caracteres, o trim remove espaços em branco no início e no final
+    }
+
+    if (!price) {
+      throw new AppError("Preço do produto é obrigatório!"); // Lança um erro personalizado se 'price' não for fornecido
+    }
+
+    if (price <= 0) {
+      throw new AppError("Preço do produto deve ser maior que zero!"); // Lança um erro personalizado se 'price' for menor ou igual a zero
     }
 
     // throw new Error("ERRO DE EXEMPLO"); // Lança um erro p demonstrar o tratamento de erros
