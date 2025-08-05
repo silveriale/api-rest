@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { AppError } from "../utils/app-error";
+import { z } from "zod";
 
 class ProductsController {
   /**
@@ -17,8 +18,14 @@ class ProductsController {
   }
 
   create(request: Request, response: Response) {
-    const { name, price } = request.body; // Extrai os parâmetros 'name' e 'price' do corpo da requisição
+    const bodySchema = z.object({
+      name: z.string(),
+      price: z.number(),
+    });
 
+    const { name, price } = bodySchema.parse(request.body);
+
+    /*
     if (!name) {
       throw new AppError("Nome do produto é obrigatório!"); // Lança um erro personalizado se 'name' não for fornecido
     }
@@ -34,6 +41,7 @@ class ProductsController {
     if (price <= 0) {
       throw new AppError("Preço do produto deve ser maior que zero!"); // Lança um erro personalizado se 'price' for menor ou igual a zero
     }
+      */
 
     // throw new Error("ERRO DE EXEMPLO"); // Lança um erro p demonstrar o tratamento de erros
     // throw new AppError("Erro de exemplo"); // Lança um erro personalizado com status 401 (Não autorizado)
