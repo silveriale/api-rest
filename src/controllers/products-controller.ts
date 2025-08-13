@@ -19,8 +19,15 @@ class ProductsController {
 
   create(request: Request, response: Response) {
     const bodySchema = z.object({
-      name: z.string({ required_error: "Name is required!" }),
-      price: z.number({ required_error: "Price is required!" }), // nullish(), // 'nullish' permite que o valor seja nulo ou indefinido
+      name: z
+        .string({ required_error: "Name is required!" })
+        .trim() // Remove espaços em branco no início e no final
+        .min(6, { message: "Name must be 6 or more caracters!" }), // Valida que 'name' é uma string obrigatória com no mínimo 6 caracteres e mostra uma mensagem de erro personalizada
+      price: z
+        .number({ required_error: "Price is required!" })
+        .positive({ message: "Price must be positive!" }), // Valida que 'price' é um número obrigatório e positivo
+      // .nullish() // 'nullish' permite que o valor seja nulo ou indefinido
+      // .gte(10) // Valida que 'price' é um número maior ou igual a 10, caso contrário, lança um erro
     });
 
     const { name, price } = bodySchema.parse(request.body);
