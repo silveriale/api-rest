@@ -20,7 +20,7 @@ class ProductsController {
   create(request: Request, response: Response) {
     const bodySchema = z.object({
       name: z.string(),
-      price: z.number(),
+      price: z.number(), // nullish(), // 'nullish' permite que o valor seja nulo ou indefinido
     });
 
     const { name, price } = bodySchema.parse(request.body);
