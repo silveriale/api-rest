@@ -19,8 +19,8 @@ class ProductsController {
 
   create(request: Request, response: Response) {
     const bodySchema = z.object({
-      name: z.string(),
-      price: z.number(), // nullish(), // 'nullish' permite que o valor seja nulo ou indefinido
+      name: z.string({ required_error: "Name is required!" }),
+      price: z.number({ required_error: "Price is required!" }), // nullish(), // 'nullish' permite que o valor seja nulo ou indefinido
     });
 
     const { name, price } = bodySchema.parse(request.body);
