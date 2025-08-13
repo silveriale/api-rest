@@ -1,4 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
+import { ZodError } from "zod"; // Importa o ZodError para tratamento de erros de validação
+
 import { routes } from "./routes/index"; // Importa as rotas definidas no arquivo index
 import { AppError } from "./utils/app-error";
 
@@ -19,6 +21,12 @@ app.use(
   (error: any, request: Request, response: Response, _: NextFunction) => {
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({ message: error.message }); // Se o erro for uma instância de AppError, responde com o status e a mensagem do erro
+    }
+
+    if (error instanceof ZodError) {
+      return response
+        .status(400)
+        .json({ message: "Erro de validação!", issues: error.format() }); // Se o erro for uma instância de ZodError, responde com status 400 e detalhes da validação
     }
 
     response.status(500).json({ message: error.message }); // Responde com um status 500 e a mensagem de erro
